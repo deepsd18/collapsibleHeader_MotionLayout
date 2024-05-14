@@ -1,0 +1,99 @@
+// [Constraining to what, where, Margin]
+
+{
+  ConstraintSets: {
+    //1. Collapsed
+    start: {
+      collapsing_box: {
+        width: 'parent',
+        height: 200,
+        start: ['parent', 'start'],
+        end: ['parent', 'end'],
+        bottom: ['parent', 'top', -64]
+      },
+      greetings: {
+        width: 'parent',
+        height: 'wrap',
+        visibility: 'invisible',
+        bottom: ['ems_card', 'top', 16],
+        start: ['parent', 'start', 16],
+      },
+      ems_card: {
+        width: 'parent',
+        height: 'wrap',
+        visibility: 'invisible',
+        bottom: ['main_text', 'top', 16],
+        start: ['parent', 'start', 16],
+        alpha: 0,
+      },
+      main_text: {
+        width: 'wrap',
+        height: 'wrap',
+        top: ['parent', 'top', 16],
+        start: ['parent', 'start', 16],
+      },
+      data_content: {
+        top: ['collapsing_box', 'bottom'],
+        bottom: ['parent', 'bottom'],
+        start: ['parent', 'start'],
+        end: ['parent', 'end']
+      }
+    },
+    //2. Expanded
+    end: {
+      collapsing_box: {
+        width: 'parent',
+        height: 200,
+        start: ['parent', 'start'],
+        end: ['parent', 'end'],
+        top: ['parent', 'top']
+      },
+      greetings: {
+        width: 'wrap',
+        height: 'wrap',
+        bottom: ['ems_card', 'top', 16],
+        start: ['parent', 'start', 16],
+      },
+      ems_card: {
+        width: 'wrap',
+        height: 'wrap',
+        bottom: ['main_text', 'top', 16],
+        start: ['parent', 'start', 16],
+        alpha: 1
+      },
+      main_text: {
+        width: 'wrap',
+        height: 'wrap',
+        top: ['collapsing_box', 'bottom', 25],
+        bottom: ['collapsing_box', 'bottom', 16],
+        start: ['parent', 'start', 16],
+      },
+      data_content: {
+        top: ['main_text', 'bottom', 16],
+        start: ['parent', 'start'],
+        end: ['parent', 'end']
+      }
+    }
+  },
+  Transitions: {
+    //to set transition properties between Start and End point.
+    default: {
+      from: 'start',
+      to: 'end',
+      pathMotionArc: 'startHorizontal',
+      // Text will move down with slight circular arc
+      KeyFrames: {
+        KeyAttributes: [
+          {
+            target: [
+              'data_content'
+            ],
+            frames: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100],
+            //For frames we pass a List containing number between 0 - 100
+            translationY: [110, 98, 92, 87, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5, 2],
+          }
+        ],
+      },
+    }
+  }
+}
